@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
+import 'package:gitrepo_searcher/manager/search_manager.dart';
+import 'package:gitrepo_searcher/models/repository.dart';
 
 class RepoList extends StatelessWidget {
-  final model = RepoModel();
+  final manager = SearchManager();
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +13,9 @@ class RepoList extends StatelessWidget {
         title: Text('RepoLIst'),
       ),
       body: SearchBar(
-        onSearch: null,
-        onItemFound: (number, index) {
-          print("itemFound");
-          return _RepoListItem("");
+        onSearch: manager.searchRepo,
+        onItemFound: (repo, index) {
+          return _RepoListItem(repo);
         },
       ),
     );
@@ -22,34 +23,37 @@ class RepoList extends StatelessWidget {
 }
 
 class _RepoListItem extends StatelessWidget {
-  final String name;
+  final Repository item;
 
-  _RepoListItem(this.name, {Key key}) : super(key: key);
+  _RepoListItem(this.item, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final int startCount = item.starCount;
+    final bool isFavorite = false;
+
     return Padding(
       padding: const EdgeInsets.all(16),
       child: LimitedBox(
         maxHeight: 30,
         child: Row(
           children: [
-            Icon(Icons.access_alarm_sharp),
+            IconButton(
+                icon: Icon(Icons.favorite,
+                    color: isFavorite ? Colors.pink : Colors.grey),
+                onPressed: null), // TODO
             SizedBox(width: 24),
             Expanded(
               child: Text(
-                name,
+                item.name,
                 style: Theme.of(context).textTheme.headline6,
               ),
             ),
             SizedBox(width: 24),
+            Text("\ $startCount stars")
           ],
         ),
       ),
     );
   }
-}
-
-class RepoModel {
-  final List<String> repos = ["AAA", "BBB", "CCC", "DDD", "EEE"];
 }

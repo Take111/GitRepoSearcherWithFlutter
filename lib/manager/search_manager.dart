@@ -5,7 +5,7 @@ import 'dart:convert';
 class SearchManager {
   final List<String> repos = ["AAA", "BBB", "CCC", "DDD", "EEE"];
 
-  Future<Repositories> searchRepo(String word) async {
+  Future<List<Repository>> searchRepo(String word) async {
     var queryParameters = {"q": word};
 
     var uri =
@@ -17,7 +17,9 @@ class SearchManager {
     final statusCode = responce.statusCode;
 
     if (statusCode == 200) {
-      return Repositories.fromJson(json.decode(responce.body));
+      final list = Repositories.fromJson(json.decode(responce.body));
+      // return Repositories.fromJson(json.decode(responce.body));
+      return list.items;
     } else {
       print("Fatal Error: searchRepo: status code \$$statusCode");
     }

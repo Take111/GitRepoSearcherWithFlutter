@@ -1,7 +1,7 @@
 class Repository {
   final int id;
   final String name;
-  final String starCount;
+  final int starCount;
 
   Repository({this.id, this.name, this.starCount});
 
