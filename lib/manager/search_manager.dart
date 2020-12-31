@@ -21,7 +21,7 @@ class SearchManager {
       // return Repositories.fromJson(json.decode(responce.body));
       return list.items;
     } else {
-      print("Fatal Error: searchRepo: status code \$$statusCode");
+      print("Fatal Error: searchRepo: status code \ $statusCode");
     }
   }
 }

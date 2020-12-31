@@ -46,7 +46,7 @@ class _RepoListItem extends StatelessWidget {
             Expanded(
               child: Text(
                 item.name,
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.bodyText1,
               ),
             ),
             SizedBox(width: 24),
