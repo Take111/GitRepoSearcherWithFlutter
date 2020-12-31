@@ -1,4 +1,4 @@
-import 'package:gitrepo_searcher/models/repository.dart';
+import 'package:gitrepo_searcher/models/entity/repository.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

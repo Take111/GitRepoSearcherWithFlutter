@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gitrepo_searcher/screens/favorite_list.dart';
 import 'package:gitrepo_searcher/screens/list.dart';
 
 void main() {
@@ -27,9 +28,10 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/',
+      initialRoute: '/list',
       routes: {
-        '/': (context) => RepoList(),
+        '/list': (context) => RepoList(),
+        '/favorite_list': (context) => FavoriteList(),
       },
     );
   }

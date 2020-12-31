@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:gitrepo_searcher/manager/search_manager.dart';
-import 'package:gitrepo_searcher/models/repository.dart';
+import 'package:gitrepo_searcher/models/entity/repository.dart';
 
 class RepoList extends StatelessWidget {
   final manager = SearchManager();
@@ -11,6 +11,14 @@ class RepoList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('RepoLIst'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.favorite, color: Colors.white),
+            onPressed: () {
+              Navigator.pushNamed(context, '/favorite_list');
+            },
+          ),
+        ],
       ),
       body: SearchBar(
         onSearch: manager.searchRepo,
@@ -29,7 +37,7 @@ class _RepoListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int startCount = item.starCount;
+    final int starCount = item.starCount;
     final bool isFavorite = false;
 
     return Padding(
@@ -50,7 +58,8 @@ class _RepoListItem extends StatelessWidget {
               ),
             ),
             SizedBox(width: 24),
-            Text("\ $startCount stars")
+            // 本当はitem.starCountで埋め込みたい、、、
+            Text("\ $starCount stars")
           ],
         ),
       ),
