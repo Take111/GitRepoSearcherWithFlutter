@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flappy_search_bar/flappy_search_bar.dart';
 
 class RepoList extends StatelessWidget {
   final model = RepoModel();
@@ -6,27 +7,16 @@ class RepoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          _RepoAppBar(),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => _RepoListItem(model.repos[index]),
-              childCount: model.repos.length,
-            ),
-          )
-        ],
+      appBar: AppBar(
+        title: Text('RepoLIst'),
       ),
-    );
-  }
-}
-
-class _RepoAppBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SliverAppBar(
-      title: Text("Repo List"),
-      floating: true,
+      body: SearchBar(
+        onSearch: null,
+        onItemFound: (number, index) {
+          print("itemFound");
+          return _RepoListItem("");
+        },
+      ),
     );
   }
 }
