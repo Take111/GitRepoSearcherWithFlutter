@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:gitrepo_searcher/manager/search_manager.dart';
 import 'package:gitrepo_searcher/models/entity/repository.dart';
+import 'package:gitrepo_searcher/models/favorite_repository.dart';
+import 'package:provider/provider.dart';
 
 class RepoList extends StatelessWidget {
   final manager = SearchManager();
@@ -46,10 +48,7 @@ class _RepoListItem extends StatelessWidget {
         maxHeight: 30,
         child: Row(
           children: [
-            IconButton(
-                icon: Icon(Icons.favorite,
-                    color: isFavorite ? Colors.pink : Colors.grey),
-                onPressed: null), // TODO
+            _FavoriteButton(item: item),
             SizedBox(width: 24),
             Expanded(
               child: Text(
@@ -64,5 +63,35 @@ class _RepoListItem extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _FavoriteButton extends StatelessWidget {
+  final Repository item;
+
+  const _FavoriteButton({Key key, @required this.item}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var isInFavorite = context.select<FavoriteRepoositoryModel, bool>(
+      (favorite) => favorite.items.contains(item),
+    );
+
+    return IconButton(
+        icon: Icon(
+          Icons.favorite,
+          color: isInFavorite ? Colors.pink : Colors.grey,
+        ),
+        onPressed: isInFavorite
+            ? () {
+                print("Is In Favorite");
+                var favoriteItem = context.read<FavoriteRepoositoryModel>();
+                favoriteItem.remove(item);
+              }
+            : () {
+                print("Is not In Favorite");
+                var favoriteItem = context.read<FavoriteRepoositoryModel>();
+                favoriteItem.add(item);
+              });
   }
 }

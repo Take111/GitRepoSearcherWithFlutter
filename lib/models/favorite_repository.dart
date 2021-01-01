@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:gitrepo_searcher/models/entity/repository.dart';
 
 class FavoriteRepoositoryModel extends ChangeNotifier {
-  List<Repository> _repositories;
+  Repository _repository;
 
-  final List<int> _repoIds = [];
+  final List<Repository> _repositories = [];
 
-  set repository(List<Repository> repositories) {
-    _repositories = repositories;
+  List<Repository> get items => _repositories;
+
+  set repository(Repository repository) {
+    _repository = repository;
     notifyListeners();
   }
 
   void add(Repository repository) {
-    _repoIds.add(repository.id);
+    _repositories.add(repository);
     notifyListeners();
   }
 
   void remove(Repository repository) {
-    _repoIds.remove(repository.id);
+    _repositories.remove(repository);
     notifyListeners();
   }
 }

@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:gitrepo_searcher/models/entity/repository.dart';
+import 'package:gitrepo_searcher/models/favorite_repository.dart';
+import 'package:provider/provider.dart';
 
 class FavoriteList extends StatelessWidget {
-  final items = ["AAA", "BBB", "CCC"];
   @override
   Widget build(BuildContext context) {
+    var favorite = context.watch<FavoriteRepoositoryModel>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Favorite List'),
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {
-          return _FavoriteListItem(items[index]);
+          return _FavoriteListItem(favorite.items[index]);
         },
-        itemCount: items.length,
+        itemCount: favorite.items.length,
       ),
     );
   }
 }
 
 class _FavoriteListItem extends StatelessWidget {
-  final String item;
+  final Repository item;
 
   _FavoriteListItem(this.item, {Key key}) : super(key: key);
   @override
@@ -37,11 +41,15 @@ class _FavoriteListItem extends StatelessWidget {
                 onPressed: null),
             SizedBox(width: 24),
             Expanded(
-              child: Text(item, style: Theme.of(context).textTheme.bodyText1),
+              child:
+                  Text(item.name, style: Theme.of(context).textTheme.bodyText1),
             ),
             IconButton(
                 icon: Icon(Icons.auto_delete_sharp, color: Colors.black45),
-                onPressed: null)
+                onPressed: () {
+                  var favoriteItem = context.read<FavoriteRepoositoryModel>();
+                  favoriteItem.remove(item);
+                })
           ],
         ),
       ),
