@@ -12,6 +12,9 @@ class Repository {
       starCount: json['stargazers_count'],
     );
   }
+
+  @override
+  bool operator ==(Object other) => other is Repository && other.id == id;
 }
 
 class Repositories {

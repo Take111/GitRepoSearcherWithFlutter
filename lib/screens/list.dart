@@ -40,7 +40,6 @@ class _RepoListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int starCount = item.starCount;
-    final bool isFavorite = false;
 
     return Padding(
       padding: const EdgeInsets.all(16),
